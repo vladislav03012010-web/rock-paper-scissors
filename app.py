@@ -400,25 +400,167 @@ phrases = {
 }
 
 
-def get_result(user, comp, opts):
+def get_result(user_choice, bot_choice, opts):
 
-    if user == comp:
+    # НИЧЬЯ
+
+    if user_choice == bot_choice:
         return "draw"
 
-    user_index = opts.index(user)
-    comp_index = opts.index(comp)
+    # =========================
+    # РЕЖИМ 3
+    # =========================
 
-    half = len(opts) // 2
+    if len(opts) == 3:
 
-    losers = []
+        if user_choice == "камень" and bot_choice == "ножницы":
+            return "win"
 
-    for i in range(1, half + 1):
-        losers.append(opts[(user_index + i) % len(opts)])
+        elif user_choice == "ножницы" and bot_choice == "бумага":
+            return "win"
 
-    if comp in losers:
-        return "lose"
+        elif user_choice == "бумага" and bot_choice == "камень":
+            return "win"
 
-    return "win"
+        elif user_choice == "камень" and bot_choice == "бумага":
+            return "lose"
+
+        elif user_choice == "ножницы" and bot_choice == "камень":
+            return "lose"
+
+        elif user_choice == "бумага" and bot_choice == "ножницы":
+            return "lose"
+
+    # =========================
+    # РЕЖИМ 7
+    # =========================
+
+    elif len(opts) == 7:
+
+        if user_choice == "камень" and bot_choice in ["ножницы", "огонь", "губка"]:
+            return "win"
+
+        elif user_choice == "ножницы" and bot_choice in ["бумага", "губка", "воздух"]:
+            return "win"
+
+        elif user_choice == "бумага" and bot_choice in ["камень", "вода", "дьявол"]:
+            return "win"
+
+        elif user_choice == "огонь" and bot_choice in ["бумага", "воздух", "губка"]:
+            return "win"
+
+        elif user_choice == "вода" and bot_choice in ["огонь", "камень", "ножницы"]:
+            return "win"
+
+        elif user_choice == "воздух" and bot_choice in ["вода", "бумага", "камень"]:
+            return "win"
+
+        elif user_choice == "губка" and bot_choice in ["вода", "бумага", "огонь"]:
+            return "win"
+
+        else:
+            return "lose"
+
+    # =========================
+    # РЕЖИМ 15
+    # =========================
+
+    elif len(opts) == 15:
+
+        if user_choice == "камень" and bot_choice in [
+            "ножницы", "огонь", "волк",
+            "змея", "губка", "человек", "дерево"
+        ]:
+            return "win"
+
+        elif user_choice == "ножницы" and bot_choice in [
+            "бумага", "дерево", "человек",
+            "губка", "вода", "воздух", "змея"
+        ]:
+            return "win"
+
+        elif user_choice == "бумага" and bot_choice in [
+            "камень", "вода", "дьявол",
+            "молния", "пистолет", "воздух", "огонь"
+        ]:
+            return "win"
+
+        elif user_choice == "огонь" and bot_choice in [
+            "бумага", "дерево", "волк",
+            "губка", "человек", "змея", "ножницы"
+        ]:
+            return "win"
+
+        elif user_choice == "вода" and bot_choice in [
+            "огонь", "камень", "ножницы",
+            "дракон", "дьявол", "молния", "пистолет"
+        ]:
+            return "win"
+
+        elif user_choice == "воздух" and bot_choice in [
+            "вода", "камень", "огонь",
+            "дракон", "дерево", "человек", "губка"
+        ]:
+            return "win"
+
+        elif user_choice == "губка" and bot_choice in [
+            "вода", "бумага", "пистолет",
+            "молния", "дьявол", "дракон", "камень"
+        ]:
+            return "win"
+
+        elif user_choice == "человек" and bot_choice in [
+            "вода", "камень", "дракон",
+            "дьявол", "ножницы", "бумага", "воздух"
+        ]:
+            return "win"
+
+        elif user_choice == "дерево" and bot_choice in [
+            "вода", "камень", "человек",
+            "губка", "бумага", "пистолет", "воздух"
+        ]:
+            return "win"
+
+        elif user_choice == "волк" and bot_choice in [
+            "человек", "дерево", "губка",
+            "бумага", "ножницы", "дьявол", "змея"
+        ]:
+            return "win"
+
+        elif user_choice == "змея" and bot_choice in [
+            "человек", "бумага", "губка",
+            "вода", "дьявол", "молния", "ножницы"
+        ]:
+            return "win"
+
+        elif user_choice == "дьявол" and bot_choice in [
+            "камень", "ножницы", "огонь",
+            "воздух", "человек", "дерево", "волк"
+        ]:
+            return "win"
+
+        elif user_choice == "молния" and bot_choice in [
+            "камень", "ножницы", "огонь",
+            "воздух", "волк", "змея", "человек"
+        ]:
+            return "win"
+
+        elif user_choice == "пистолет" and bot_choice in [
+            "камень", "ножницы", "волк",
+            "змея", "дьявол", "дерево", "огонь"
+        ]:
+            return "win"
+
+        elif user_choice == "дракон" and bot_choice in [
+            "огонь", "вода", "воздух",
+            "бумага", "волк", "пистолет", "камень"
+        ]:
+            return "win"
+
+        else:
+            return "lose"
+
+    return "error"
 
 
 @app.route('/', methods=['GET', 'POST'])
