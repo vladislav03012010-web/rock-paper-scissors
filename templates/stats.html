@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Статистика
+</h2>
+
+<div class="card p-4 shadow-sm">
+
+    <h4>
+        Победы: {{ stats.wins }}
+    </h4>
+
+    <h4>
+        Поражения: {{ stats.losses }}
+    </h4>
+
+    <h4>
+        Ничьи: {{ stats.draws }}
+    </h4>
+
+</div>
+
+{% endblock %}

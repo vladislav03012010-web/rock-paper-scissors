@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Режим: {{ mode }}
+</h2>
+
+<div class="mb-4">
+
+    <a href="/game?mode=3"
+       class="btn btn-outline-secondary">
+        3
+    </a>
+
+    <a href="/game?mode=7"
+       class="btn btn-outline-secondary">
+        7
+    </a>
+
+    <a href="/game?mode=15"
+       class="btn btn-outline-secondary">
+        15
+    </a>
+
+</div>
+
+<form method="post">
+
+    {% for o in options %}
+
+        <button name="choice"
+                value="{{ o }}"
+
+                class="btn m-2"
+
+                style="background-color:#a78bfa;
+                       color:white;
+                       min-width:120px;">
+
+            {{ o }}
+
+        </button>
+
+    {% endfor %}
+
+</form>
+
+{% if result %}
+
+<div class="mt-5">
+
+    <h4>
+        Ты: {{ user }}
+    </h4>
+
+    <h4>
+        Компьютер: {{ comp }}
+    </h4>
+
+    <img src="{{ url_for('static',
+             filename='images/' + image) }}"
+
+         width="600"
+         class="mt-3">
+
+    <h2 class="mt-3">
+
+        {% if result == "win" %}
+
+            <span class="text-success">
+                Победа
+            </span>
+
+        {% elif result == "lose" %}
+
+            <span class="text-danger">
+                Поражение
+            </span>
+
+        {% else %}
+
+            <span class="text-secondary">
+                Ничья
+            </span>
+
+        {% endif %}
+
+    </h2>
+
+    <h4 class="mt-3">
+        {{ phrase }}
+    </h4>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
