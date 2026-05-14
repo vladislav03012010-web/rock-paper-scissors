@@ -402,14 +402,9 @@ phrases = {
 
 def get_result(user_choice, bot_choice, opts):
 
-    # НИЧЬЯ
-
     if user_choice == bot_choice:
         return "draw"
 
-    # =========================
-    # РЕЖИМ 3
-    # =========================
 
     if len(opts) == 3:
 
@@ -431,9 +426,6 @@ def get_result(user_choice, bot_choice, opts):
         elif user_choice == "бумага" and bot_choice == "ножницы":
             return "lose"
 
-    # =========================
-    # РЕЖИМ 7
-    # =========================
 
     elif len(opts) == 7:
 
@@ -460,10 +452,6 @@ def get_result(user_choice, bot_choice, opts):
 
         else:
             return "lose"
-
-    # =========================
-    # РЕЖИМ 15
-    # =========================
 
     elif len(opts) == 15:
 
@@ -699,6 +687,23 @@ def api_play():
         "computer": comp,
         "result": result
     })
+
+
+@app.route("/api/stats")
+def api_stats():
+    players = Stats.query.all()
+
+    data = []
+
+    for player in players:
+        data.append({
+            "name": player.username,
+            "wins": player.wins,
+            "losses": player.losses,
+            "draws": player.draws
+        })
+
+    return jsonify(data)
 
 
 if __name__ == '__main__':
